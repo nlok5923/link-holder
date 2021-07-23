@@ -7,7 +7,7 @@ import Loader from "../../Components/Loader/index";
 import Axios from "axios";
 import useToken from "../../Utils/customHooks/token";
 import UserCard from "../../Components/UserCard";
-import AdminNavigation from "../../Components/AdminNavigation/index"
+import AdminNavigation from "../../Components/AdminNavigation/index";
 
 const Dashboard = () => {
   const { getStatus } = useAdminAuthStatus();
@@ -20,7 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     const token = getToken();
     try {
-      Axios.get("http://localhost:5000/admin/all-users", {
+      Axios.get("https://aqueous-ridge-34051.herokuapp.com/admin/all-users", {
         headers: {
           Authorization: token,
         },
@@ -42,17 +42,20 @@ const Dashboard = () => {
       {isLoading && <Loader />}
       {!isLoading && !auth && <Redirect to="/admin/login" />}
       {!isLoading && auth && (
-           <div>
+        <div>
           <AdminNavigation />
-          <Header as="h3">Welcome to admin access here is the list of all users </Header>
+          <Header as="h3">
+            Welcome to admin access here is the list of all users{" "}
+          </Header>
           {users.map((userInfo) => {
-            return(
-                <NavLink to={`/admin/dashboard/user/${userInfo.id}`} >
-                    <UserCard data={userInfo.data} /> 
-                    </NavLink>)
-              })}
-              </div>
-    )}
+            return (
+              <NavLink to={`/admin/dashboard/user/${userInfo.id}`}>
+                <UserCard data={userInfo.data} />
+              </NavLink>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

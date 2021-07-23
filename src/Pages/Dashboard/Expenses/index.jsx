@@ -16,6 +16,7 @@ import "./Expenses.scss";
 import HamburgerMenu from "../../../Components/HamburgerMenu/index";
 import Axios from "axios";
 import useToken from "../../../Utils/customHooks/token";
+import { categories, currencies } from "../../../Extras/item"
 
 const Expenses = () => {
   const { getToken } = useToken();
@@ -30,8 +31,8 @@ const Expenses = () => {
   const [expense, setExpense] = useState({
     title: "",
     description: "",
-    currency: "",
-    category: "",
+    currency: "INR",
+    category: "Other",
     amount: "",
   });
 
@@ -43,7 +44,7 @@ const Expenses = () => {
     const fetchExpenses = async () => {
       try {
         const response = await Axios.get(
-          "http://localhost:5000/dashboard/all-expenses",
+          "https://aqueous-ridge-34051.herokuapp.com/dashboard/all-expenses",
           {
             headers: {
               Authorization: token,
@@ -81,33 +82,20 @@ const Expenses = () => {
   const saveExpense = async () => {
     setOpen(false);
     try {
+      setTimeout(() => window.location.reload(), 1500);
       await Axios.post(
-        "http://localhost:5000/dashboard/add-expense",
+        "https://aqueous-ridge-34051.herokuapp.com/dashboard/add-expense",
         expense,
         {
           headers: {
             Authorization: token,
           },
         }
-      );
+      )
     } catch (error) {
       console.log(error.message);
     }
-    window.location.reload();
   };
-
-  const categories = [
-    { key: 1, value: "Home", text: "Home" },
-    { key: 2, value: "Food", text: "Food" },
-    { key: 3, value: "Shopping", text: "Shopping" },
-    { key: 4, value: "Fuel", text: "Fuel" },
-    { key: 5, value: "Other", text: "Other" },
-  ];
-
-  const currencies = [
-    { key: 1, value: "USD", text: "USD" },
-    { key: 2, value: "INR", text: "INR" },
-  ];
 
   return (
     <>
