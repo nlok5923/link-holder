@@ -34,6 +34,7 @@ export const fetchLinks = async () => {
     let linksRef = await db.collection("links").get();
     let links = [];
     linksRef.forEach(link => links.push({ name: link.data().name, url: link.data().url }));
+    console.log(links);
     return links;
 }
 

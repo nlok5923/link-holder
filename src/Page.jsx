@@ -30,6 +30,12 @@ const App = () => {
   const [links, setLinks] = useState([]);
   const [Resourcelinks, setResourceLinks] = useState([]);
 
+  const ttStyle = {
+      height: "auto",
+      width: "100%",
+      objectFit: "cover"
+  }
+
   const saveLink = (e) => {
     setLinkInfo({ ...linkInfo, [e.target.name]: e.target.value });
   };
@@ -74,6 +80,9 @@ const App = () => {
   return (
     <>
       <div style={{ height: "100vh", margin: "0 20% 0 20%" }}>
+        <Container textAlign="center">
+          <img src="/images/tt.png" alt="time table" style={ttStyle} />
+        </Container>
         <div>
           <Container>
             <Header as="h1" textAlign="center">
